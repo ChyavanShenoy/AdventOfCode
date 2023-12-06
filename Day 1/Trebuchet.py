@@ -8,23 +8,28 @@
 import re
 
 def main():
-    # Open the file for reading.
     with open("c1.txt", "r") as file:
-        # Read a single line from the file.
         data_to_process = file.read().splitlines()
+        # print(data_to_process)
 
     array_of_numbers = []
     first_digit = 0
     second_digit = 0
 
     for i in data_to_process:
-        numbers = re.findall(r'\d+', i)
-        array_of_numbers.extend(map(str, numbers))
+        numbers = re.findall(r'[^a-z]', i)
+        concatenated_numbers = ''.join(numbers)
+        array_of_numbers.append(concatenated_numbers)
+
+    # print(array_of_numbers)
+
+    for i in array_of_numbers:
+        first_digit = i[0]
+        second_digit = i[-1]
+        array_of_numbers[array_of_numbers.index(i)] = F"{first_digit}{second_digit}"
 
 
-
-
-    print(array_of_numbers)
-    print(F"The sum of all the numbers is: {sum(map(int, number_array))}")
+    # print(array_of_numbers)
+    print(F"The sum of all the numbers is: {sum(map(int, array_of_numbers))}")
 
 main()
