@@ -8,28 +8,44 @@
 import re
 
 def main():
-    with open("c1.txt", "r") as file:
+    with open("ex2.txt", "r") as file:
         data_to_process = file.read().splitlines()
-        # print(data_to_process)
+        print(data_to_process)
+
+    conversion_map = {
+        "one": 1,
+        "two": 2,
+        "three": 3,
+        "four": 4,
+        "five":5,
+        "six": 6,
+        "seven": 7,
+        "eight": 8,
+        "nine": 9,
+        "zero": 0
+    }
+    input_data = ["two1nine","eightwothree","abcone2threexyz","xtwone3four","4nineeightseven2","zoneight234","7pqrstsixteen"]
 
     array_of_numbers = []
     first_digit = 0
     second_digit = 0
 
     for i in data_to_process:
-        numbers = re.findall(r'[^a-z]', i)
+        numbers = re.findall(r'[a-z]', i)
+        # check if the number is in the conversion map
         concatenated_numbers = ''.join(numbers)
         array_of_numbers.append(concatenated_numbers)
 
-    # print(array_of_numbers)
+    print(array_of_numbers)
 
     for i in array_of_numbers:
-        first_digit = i[0]
-        second_digit = i[-1]
-        array_of_numbers[array_of_numbers.index(i)] = F"{first_digit}{second_digit}"
+        # check conversion_map is a substring of i
+        for key in conversion_map:
+            if key in i:
+                i = i.replace(key, str(conversion_map[key]))
+        print(i)
 
-
-    # print(array_of_numbers)
-    print(F"The sum of all the numbers is: {sum(map(int, array_of_numbers))}")
+    print(array_of_numbers)
+    # print(F"The sum of all the numbers is: {sum(map(int, array_of_numbers))}")
 
 main()
